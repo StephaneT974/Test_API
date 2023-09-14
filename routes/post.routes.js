@@ -1,6 +1,6 @@
 // Appeler la librairie Express
 const express = require('express');
-const { setPosts } = require('../controllers/post.controller');
+const { setPosts, getPosts } = require('../controllers/post.controller');
 
 // Appeler l'objet Router d'Express
 const router = express.Router();
@@ -15,6 +15,7 @@ router.get("/", (req, res) => {
 });
 
 // Envoie des données avec Post
+router.get("/", getPosts ) 
 router.post("/", setPosts) 
 // => {
 //     console.log(req.body);
