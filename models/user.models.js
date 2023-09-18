@@ -10,7 +10,7 @@ const userSchema = mongoose.Schema(
             required: true,
         },
         login: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: String,
             required:true
         },
         password: {
