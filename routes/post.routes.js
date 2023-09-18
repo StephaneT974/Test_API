@@ -1,6 +1,6 @@
 // Appeler la librairie Express
 const express = require('express');
-const { setPosts, getPosts } = require('../controllers/post.controller');
+const { setPosts, getPosts, editPost } = require('../controllers/post.controller');
 
 // Appeler l'objet Router d'Express
 const router = express.Router();
@@ -10,22 +10,35 @@ const router = express.Router();
 
 // Afficher le message "Hello"
 // Récupere les données avec Get
-router.get("/", (req, res) => {
-    res.json({ message: "Hello0"});
-});
+
+
+// router.get("/", (req, res) => {
+//     res.json({ message: "Hello0"});
+// });
+
+
+router.get("/", getPosts ) 
+
 
 // Envoie des données avec Post
-router.get("/", getPosts ) 
+
 router.post("/", setPosts) 
 // => {
 //     console.log(req.body);
 //     res.json({ message: req.body.message});
 // });
 
+
+
+
 // Mise à jour avec Put. Dans ce cas, selon l'id. Par exemple, dans l'url : http://localhost:5000/post/11111
-router.put("/:id", (req, res) => {
-    res.json({ messageId: req.params.id});
-});
+
+// router.put("/:id", (req, res) => {
+//     res.json({ messageId: req.params.id});
+// });
+
+router.put("/:id", editPost);
+
 
 // Supprimer avec Delete. Selon l'id
 router.delete("/:id", (req, res) => {
