@@ -1,6 +1,6 @@
 // Appeler la librairie Express
 const express = require('express');
-const { getPosts, editPost, deletePost, likePost, dislikePost, setPosts } = require('../controllers/post.controller');
+const { getUsers, setUsers, editUser, deleteUser, likeUser, dislikeUser } = require('../controllers/user.controller');
 
 // Appeler l'objet Router d'Express
 const router = express.Router();
@@ -17,12 +17,12 @@ const router = express.Router();
 // });
 
 
-router.get("/", getPosts ); 
+router.get("/", getUsers );
 
 
 // Envoie des données avec Post
 
-router.post("/", setPosts); 
+router.post("/", setUsers);
 // => {
 //     console.log(req.body);
 //     res.json({ message: req.body.message});
@@ -37,7 +37,7 @@ router.post("/", setPosts);
 //     res.json({ messageId: req.params.id});
 // });
 
-router.put("/:id", editPost);
+router.put("/:id", editUser);
 
 
 // Supprimer avec Delete. Selon l'id
@@ -46,7 +46,7 @@ router.put("/:id", editPost);
 //     res.json({ message: "Post supprimé id : " + req.params.id});
 // });
 
-router.delete("/:id", deletePost);
+router.delete("/:id", deleteUser);
 
 
 
@@ -56,7 +56,7 @@ router.delete("/:id", deletePost);
 //     res.json({ message: "Post liké id : " + req.params.id});
 // });
 
-router.patch("/like-post/:id", likePost);
+router.patch("/like-user/:id", likeUser);
 
 
 
@@ -64,7 +64,7 @@ router.patch("/like-post/:id", likePost);
 //     res.json({ message: "Post disliké id : " + req.params.id});
 // });
 
-router.patch("/dislike-post/:id", dislikePost);
+router.patch("/dislike-user/:id", dislikeUser);
 
 
 module.exports = router;

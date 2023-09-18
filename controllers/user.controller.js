@@ -1,49 +1,50 @@
 // Faire appel au Modèle de la BDD
 const { Mongoose } = require("mongoose");
-const PostModel = require ("../models/post.models")
+const UserModel = require ("../models/user.models")
 
 // Recevoir la réponse d'un serveur distant
-module.exports.getPosts = async (req, res) => {
-    const posts = await PostModel.find();
-    res.status(200).json(posts)
+module.exports.getUsers = async (req, res) => {
+    const users = await UserModel.find();
+    res.status(200).json(users)
 }
 
 
 
 
-module.exports.setPosts = async (req, res) => {
+module.exports.setUsers = async (req, res) => {
     // Vérifier s'il y a un message qui a été entré
-    if (!req.body.message) {
+    if (!req.body.name) {
         // Si il n'y a pas de message
-        res.status(400).json({message: "Merci d'ajouter un message"})
+        res.status(400).json({message: "Merci d'ajouter un nom"})
 
     }
 
 
-    const post = await PostModel.create({
-        message: req.body.message,
-        author: req.body.author,
+    const user = await UserModel.create({
+        name: req.body.name,
+        login: req.body.login,
+        password: req.body.password,
     });
-    res.status(200).json(post);
+    res.status(200).json(user);
   
 
 
 };
 
-module.exports.editPost = async (req,res) => {
+module.exports.editUser = async (req,res) => {
     // Identifier le post qu'on veut modifier en fonction de l'ID
-    const post = await PostModel.findById(req.params.id);
+    const user = await UserModel.findById(req.params.id);
 
-    if (!post){
-        res.status(400).json({ message: "Post inexistant"});
+    if (!user){
+        res.status(400).json({ message: "User inexistant"});
     }
 
 
 // Update avec MongooseDB
 
-const updatePost = await PostModel.findByIdAndUpdate (
+const updateUser = await PostModel.findByIdAndUpdate (
     // Les paramètres. Post => const post de editPost
-    post,
+    user,
     req.body,
     // Créer un nouveau tableau/objet
     {new: true}
@@ -51,27 +52,27 @@ const updatePost = await PostModel.findByIdAndUpdate (
 
 
 
-res.status(200).json(updatePost);
+res.status(200).json(updateUser);
 };
 
-module.exports.deletePost = async (req, res) => {
+module.exports.deleteUser = async (req, res) => {
     // Identifier le post qu'on veut supprimer en fonction de l'ID
-    const post = await PostModel.findById(req.params.id);
+    const user = await UserModel.findById(req.params.id);
 
-    if (!post){
-        res.status(400).json({ message: "Post inexistant"});
+    if (!user){
+        res.status(400).json({ message: "User inexistant"});
     }
 
     // Supprimer avec la BDD
-    await post.deleteOne();
-    res.status(200).json("Message supprimé" + post);
+    await user.deleteOne();
+    res.status(200).json("Message supprimé" + user);
 };
 
 
-module.exports.likePost = async (req, res) => {
+module.exports.likeUser = async (req, res) => {
 
     try {
-        await PostModel.findByIdAndUpdate(
+        await UserModel.findByIdAndUpdate(
             // Le post est contenu dans la ligne suivante :
             req.params.id,
             // Ajouté le like en fonction de l'ID de l'utilisateur
@@ -90,10 +91,10 @@ module.exports.likePost = async (req, res) => {
 };
 
 
-module.exports.dislikePost = async (req, res) => {
+module.exports.dislikeUser = async (req, res) => {
 
     try {
-        await PostModel.findByIdAndUpdate(
+        await UserModel.findByIdAndUpdate(
             // Le post est contenu dans la ligne suivante :
             req.params.id,
             // Retirer le like en fonction de l'ID de l'utilisateur

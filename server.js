@@ -29,6 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // A localhost:5000/post, va à /routes/post.routes
 app.use("/post", require("./routes/post.routes")); 
+app.use("/user", require("./routes/user.routes")); 
 
 
 // Lancer le serveur 
