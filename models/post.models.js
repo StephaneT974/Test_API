@@ -10,9 +10,8 @@ const postSchema = mongoose.Schema(
             required: true,
         },
         author: {
-            type: mongoose.Schema.Types.ObjectId,
-            required:true,
-            ref : 'User'
+            type: String,
+            required: true
         },
         likers: {
             type: [String]
